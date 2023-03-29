@@ -1,0 +1,22 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.board-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 0.5rem solid lightgray;
+    font-size: 3rem;
+    font-weight: bold;
+    aspect-ratio: 1;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 50%;
+}

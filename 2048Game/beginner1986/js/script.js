@@ -19,6 +19,7 @@ const renderBoard = () => {
 
     for(i=0; i<board.length; i++) {
         const div = document.createElement('div');
+        div.classList.add('board-item');
         div.textContent = board[i];
         parent.append(div);
     }
