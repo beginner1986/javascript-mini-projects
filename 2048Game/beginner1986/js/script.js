@@ -72,10 +72,10 @@ const moveLeft = () => {
 }
 
 const moveDown = () => {
-    for(i=0; i<16; i++) {
-        if(i / rows !== 3 && board[i] !== 0) {
-            // TODO
-            //i = -1;
+    for(i=0; i<tilesCount - cols; i++) {
+        if(i / rows !== rows - 1 && board[i] !== 0) {
+            mergeOrMoveTile(i, i + cols);
+            i = -1;
         }
     }
 
@@ -83,10 +83,10 @@ const moveDown = () => {
 }
 
 const moveUp = () => {
-    for(i=15; i>=0; i--) {
-        if(i / 4 !== 0 && board[i] !== 0) {
-            // TODO
-            //i = 16;
+    for(i=tilesCount - 1; i>=rows; i--) {
+        if(i / rows !== 0 && board[i] !== 0) {
+            mergeOrMoveTile(i, i - cols);
+            i = tilesCount;
         }
     }
 
