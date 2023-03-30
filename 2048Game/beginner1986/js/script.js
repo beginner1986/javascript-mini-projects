@@ -1,4 +1,6 @@
 board = new Array(16).fill(0);
+const cols = 4;
+const rows = 4;
 
 const fillTwoRandomFields = () => {
     fieldsToFill = 2;
@@ -37,11 +39,19 @@ const renderBoard = () => {
     }
 };
 
+const mergeOrMoveTile = (currentIndex, nextIndex) => {
+    if(board[nextIndex] === board[currentIndex])
+        board[nextIndex] *= 2;
+    else if(board[nextIndex] === 0)
+        board[nextIndex] = board[currentIndex];
+
+    board[currentIndex] = 0;
+};
+
 const moveRight = () => {
-    for(i=0; i<16; i++) {
-        if(i % 4 !== 3 && board[i] !== 0 && board[i + 1] === 0) {
-            board[i + 1] = board[i];
-            board[i] = 0;
+    for(i=0; i<15; i++) {
+        if(i % cols !== 3 && board[i] !== 0) {
+            mergeOrMoveTile(i, i + 1);
             i = -1;
         }
     }
@@ -50,10 +60,9 @@ const moveRight = () => {
 }
 
 const moveLeft = () => {
-    for(i=15; i>=0; i--) {
-        if(i % 4 !== 0 && board[i] !== 0 && board[i - 1] === 0) {
-            board[i - 1] = board[i];
-            board[i] = 0;
+    for(i=15; i>0; i--) {
+        if(i % cols !== 0 && board[i] !== 0) {
+            mergeOrMoveTile(i, i - 1);
             i = 16;
         }
     }
@@ -63,9 +72,8 @@ const moveLeft = () => {
 
 const moveDown = () => {
     for(i=0; i<16; i++) {
-        if(i / 4 !== 3 && board[i] !== 0 && board[i + 4] === 0) {
-            board[i + 4] = board[i];
-            board[i] = 0;
+        if(i / 4 !== 3 && board[i] !== 0) {
+            // TODO
             i = -1;
         }
     }
@@ -75,9 +83,8 @@ const moveDown = () => {
 
 const moveUp = () => {
     for(i=15; i>=0; i--) {
-        if(i / 4 !== 0 && board[i] !== 0 && board[i - 4] === 0) {
-            board[i - 4] = board[i];
-            board[i] = 0;
+        if(i / 4 !== 0 && board[i] !== 0) {
+            // TODO
             i = 16;
         }
     }
