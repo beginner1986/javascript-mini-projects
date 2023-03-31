@@ -1,21 +1,24 @@
-board = new Array(16).fill(0);
+let board = new Array(16).fill(0);
 const cols = 4;
 const rows = 4;
 const tilesCount = cols * rows;
 
-const fillTwoRandomFields = () => {
-    fieldsToFill = 2;
+const setRandomField = () => {
+    let emptyFields = [];
 
-    while(fieldsToFill != 0) {
-        index = Math.floor(Math.random() * board.length);
-
-        if(board[index] != 0)
-            continue;
-        
-        board[index] = 2;
-        fieldsToFill--;
+    for(let i=0; i<board.length; i++) {
+        if(board[i] === 0)
+            emptyFields.push(i);
     }
-}
+
+    let randomIndex = Math.floor(Math.random() * board.length);
+    board[randomIndex] = 2;
+};
+
+const fillTwoRandomFields = () => {
+    setRandomField();
+    setRandomField();
+};
 
 const clearBoard = () => {
     const parent = document.querySelector('#board');
@@ -29,7 +32,7 @@ const renderBoard = () => {
 
     clearBoard();
 
-    for(i=0; i<board.length; i++) {
+    for(let i=0; i<board.length; i++) {
         const div = document.createElement('div');
         div.classList.add('board-item');
 
@@ -50,7 +53,7 @@ const mergeOrMoveTile = (currentIndex, nextIndex) => {
 };
 
 const moveRight = () => {
-    for(i=0; i<tilesCount - 1; i++) {
+    for(let i=0; i<tilesCount - 1; i++) {
         if(i % cols !== cols - 1 && board[i] !== 0) {
             mergeOrMoveTile(i, i + 1);
             i = -1;
@@ -58,10 +61,10 @@ const moveRight = () => {
     }
 
     renderBoard();
-}
+};
 
 const moveLeft = () => {
-    for(i=tilesCount - 1; i>0; i--) {
+    for(let i=tilesCount - 1; i>0; i--) {
         if(i % cols !== 0 && board[i] !== 0) {
             mergeOrMoveTile(i, i - 1);
             i = tilesCount;
@@ -69,10 +72,10 @@ const moveLeft = () => {
     }
 
     renderBoard();
-}
+};
 
 const moveDown = () => {
-    for(i=0; i<tilesCount - cols; i++) {
+    for(let i=0; i<tilesCount - cols; i++) {
         if(i / rows !== rows - 1 && board[i] !== 0) {
             mergeOrMoveTile(i, i + cols);
             i = -1;
@@ -80,10 +83,10 @@ const moveDown = () => {
     }
 
     renderBoard();
-}
+};
 
 const moveUp = () => {
-    for(i=tilesCount - 1; i>=rows; i--) {
+    for(let i=tilesCount - 1; i>=rows; i--) {
         if(i / rows !== 0 && board[i] !== 0) {
             mergeOrMoveTile(i, i - cols);
             i = tilesCount;
@@ -111,6 +114,8 @@ document.addEventListener("keydown", (event) =>
         default:
             break;
     }
+
+    setRandomField();
 });
 
 fillTwoRandomFields();
